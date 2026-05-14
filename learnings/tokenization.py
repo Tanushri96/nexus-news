@@ -1,13 +1,9 @@
-from transformers import AutoTokenizer
+from transformers import pipeline
+gen=pipeline("text-generation",model="gpt2")
+result=gen("The future of AI is", max_new_tokens=50,num_return_sequences=1)
+print(result[0]['generated_text'])
+creative=gen("Once upon a time in Mysuru", max_new_tokens=60,temperature=1.2,do_sample=True)
+focused=gen("Once upon a time in Mysuru", max_new_tokens=60,temperature=0.1,do_sample=True)
 
-tokenizer=AutoTokenizer.from_pretrained("bert-base-uncased")
-text="Zomato delivers food"
-tokens=tokenizer.tokenize(text)
-ids=tokenizer.encode(text)
-
-print("Tokens:",tokens)
-print("IDs:",ids)
-
-decoded=tokenizer.decode(ids)
-print("Decoded:",decoded)
-
+print("Creative:",creative[0]['generated_text'])
+print("Focused:",focused[0]['generated_text']) 
